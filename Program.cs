@@ -10,6 +10,7 @@
 8 4 4 2
 */
 
+/*
 int InputNum(string message)
 {
     Console.Write(message);
@@ -71,7 +72,7 @@ Fill2DArray(myArray, minValue, maxValue);
 Print2DArray(myArray);
 SortRowArray(myArray);
 Print2DArray(myArray);
-
+*/
 
 
 /*
@@ -85,6 +86,61 @@ Print2DArray(myArray);
 Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 */
 
+int InputNum(string message)
+{
+    Console.Write(message);
+    return int.Parse(Console.ReadLine()!);
+}
+
+int[,] Create2DArray(int n)
+{
+    return new int[n, n];
+}
+
+void Fill2DArray(int[,] array, int min, int max)
+{
+    Random rnd = new Random();
+    for (int i = 0; i < array.GetLength(0); i++)
+        for (int j = 0; j < array.GetLength(1); j++)
+            array[i, j] = rnd.Next(min, max + 1);
+}
+
+void Print2DArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+            Console.Write($"{array[i, j]}\t");
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+void FindMinSumRow(int[,] array, int max)
+{
+    int sumMin = max;
+    int minRow = 0;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        int sum_tek = 0;
+        for (int j = 0; j < array.GetLength(1); j++) sum_tek += array[i, j];
+        if (sumMin > sum_tek)
+        {
+            minRow = i;
+            sumMin = sum_tek;
+        }
+    }
+    Console.Write($"Строка с наименьшей суммой элементов: {minRow} строка\t");
+}
+
+int size = InputNum("Введите размер массива: ");
+int minValue = InputNum("Введите минимальное значение диапазона: ");
+int maxValue = InputNum("Введите максимальное значение диапазона: ");
+
+int[,] myArray = Create2DArray(size);
+Fill2DArray(myArray, minValue, maxValue);
+Print2DArray(myArray);
+FindMinSumRow(myArray, maxValue * size);
 
 
 
