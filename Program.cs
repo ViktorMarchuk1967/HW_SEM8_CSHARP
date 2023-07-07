@@ -86,6 +86,7 @@ Print2DArray(myArray);
 Программа считает сумму элементов в каждой строке и выдаёт номер строки с наименьшей суммой элементов: 1 строка
 */
 
+/*
 int InputNum(string message)
 {
     Console.Write(message);
@@ -141,7 +142,7 @@ int[,] myArray = Create2DArray(size);
 Fill2DArray(myArray, minValue, maxValue);
 Print2DArray(myArray);
 FindMinSumRow(myArray, maxValue * size);
-
+*/
 
 
 /*
@@ -154,6 +155,79 @@ FindMinSumRow(myArray, maxValue * size);
 15 18
 */
 
+/*
+int InputNum(string message)
+{
+    Console.Write(message);
+    return int.Parse(Console.ReadLine()!);
+}
+
+int[,] Create2DArray(int n, int m)
+{
+    return new int[n, m];
+}
+
+void Fill2DArray(int[,] array, int min, int max)
+{
+    Random rnd = new Random();
+    for (int i = 0; i < array.GetLength(0); i++)
+        for (int j = 0; j < array.GetLength(1); j++)
+            array[i, j] = rnd.Next(min, max + 1);
+}
+
+void Print2DArray(int[,] array)
+{
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+            Console.Write($"{array[i, j]}\t");
+        Console.WriteLine();
+    }
+    Console.WriteLine();
+}
+
+
+void MatrixMultiplication(int[,] array1, int[,] array2)
+{
+    if (array1.GetLength(1) == array2.GetLength(0))
+    {
+        int[,] array3 = Create2DArray(array1.GetLength(0), array2.GetLength(1));
+        for (int i = 0; i < array3.GetLength(0); i++)
+        {
+            for (int j = 0; j < array3.GetLength(1); j++)
+            {
+                int mult = 0;
+                for (int k = 0; k < array1.GetLength(1); k++)
+                    {
+                        mult += array1[i, k] * array2[k, j];
+                    }
+                array3[i, j] = mult;
+            }
+        }
+        Print2DArray(array3);
+    }
+    else Console.WriteLine("Произведения исходных матриц не существует.");
+}
+
+int rowsA = InputNum("Введите количество строк матрицы A: ");
+int colsA = InputNum("Введите количество столбцов матрицы A: ");
+int minValueA = InputNum("Введите минимальное значение диапазона матрицы A: ");
+int maxValueA = InputNum("Введите максимальное значение диапазона матрицы A: ");
+
+int rowsB = InputNum("Введите количество строк матрицы B: ");
+int colsB = InputNum("Введите количество столбцов матрицы B: ");
+int minValueB = InputNum("Введите минимальное значение диапазона матрицы B: ");
+int maxValueB = InputNum("Введите максимальное значение диапазона матрицы B: ");
+
+int[,] myArrayA = Create2DArray(rowsA, colsA);
+int[,] myArrayB = Create2DArray(rowsB, colsB);
+
+Fill2DArray(myArrayA, minValueA, maxValueA);
+Print2DArray(myArrayA);
+Fill2DArray(myArrayB, minValueB, maxValueB);
+Print2DArray(myArrayB);
+MatrixMultiplication(myArrayA, myArrayB);
+*/
 
 
 
@@ -167,8 +241,82 @@ FindMinSumRow(myArray, maxValue * size);
 26(1,0,1) 55(1,1,1)
 */
 
+int InputNum(string message)
+{
+    Console.Write(message);
+    return int.Parse(Console.ReadLine()!);
+}
+
+int[,,] Create3DArray(int n, int m, int z)
+{
+    return new int[n, m, z];
+}
+
+int[] CreateArray2Digit()
+{
+    return new int[90];
+}
+
+void FillArrayDat(int[] array)
+{
+    for (int i = 0; i < 90; i++) array[i] = i + 10;
+
+    Random rand = new Random();
+
+    for (int i = array.Length - 1; i >= 1; i--)
+    {
+        int j = rand.Next(i + 1);
+        int tmp = array[j];
+        array[j] = array[i];
+        array[i] = tmp;
+    }
+}
+
+void Fill3DArray(int[,,] array, int[] arrayDat)
+{
+    int count = 0;
+    for (int i = 0; i < array.GetLength(0); i++)
+        for (int j = 0; j < array.GetLength(1); j++)
+            for (int k = 0; k < array.GetLength(2); k++)
+                array[i, j, k] = arrayDat[count++];
+}
+
+void Print3DArray(int[,,] array)
+{
+    for (int k = 0; k < array.GetLength(2); k++)
+    {
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+                Console.Write($"{array[i, j, k]}({i},{j},{k})\t");
+            Console.WriteLine();
+        }
+        Console.WriteLine();
+    }
+
+}
+
+// void PrintArray(int[] array)
+// {
+//     for (int i = 0; i < array.GetLength(0); i++)
+//     {
+//         Console.Write($"{array[i]}\t");
+//     }
+//     Console.WriteLine();
+//     Console.WriteLine();
+// }
+
+int size1 = InputNum("Введите первую размерность матрицы: ");
+int size2 = InputNum("Введите вторую размерность матрицы: ");
+int size3 = InputNum("Введите третью размерность матрицы: ");
 
 
+int[,,] myArray = Create3DArray(size1, size2, size3);
+int[] myArrayDat = CreateArray2Digit();
+FillArrayDat(myArrayDat);
+//PrintArray(myArrayDat);
+Fill3DArray(myArray, myArrayDat);
+Print3DArray(myArray);
 
 
 /*
