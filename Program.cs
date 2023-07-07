@@ -241,6 +241,7 @@ MatrixMultiplication(myArrayA, myArrayB);
 26(1,0,1) 55(1,1,1)
 */
 
+/*
 int InputNum(string message)
 {
     Console.Write(message);
@@ -317,7 +318,7 @@ FillArrayDat(myArrayDat);
 //PrintArray(myArrayDat);
 Fill3DArray(myArray, myArrayDat);
 Print3DArray(myArray);
-
+*/
 
 /*
 Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4.
@@ -327,10 +328,16 @@ Print3DArray(myArray);
 11 16 15 06
 10 09 08 07
 */
-/*
-int[,] Create2DArray(int rows, int cols)
+
+int InputNum(string message)
 {
-   return new int[rows, cols];
+    Console.Write(message);
+    return int.Parse(Console.ReadLine()!);
+}
+
+int[,] Create2DArray(int n)
+{
+   return new int[n, n];
 }
 
 void Print2DArray(int[,] array)
@@ -343,10 +350,8 @@ void Print2DArray(int[,] array)
    }
 }
 
-int[,] Spiral(int n)
+void Fill2DArraySpiral(int[,] array, int n)
 {
-   int[,] result = new int[n, n];
-
    int pos = 1;
    int count = n;
    int value = -n;
@@ -354,24 +359,23 @@ int[,] Spiral(int n)
 
    while (count > 0)
    {
-       value = -1 * value / n;
+       value = -1 * value / n; //1, -1
        for (int i = 0; i < count; i++)
        {
-           sum += value;
-           result[sum / n, sum % n] = pos++;
+           sum += value; //0, 1, 2, 3
+           array[sum / n, sum % n] = pos++; // 0,0 0,1 0,2 0,3
        }
-       value *= n;
-       count--;
+       value *= n; // 4
+       count--; // 3
        for (int i = 0; i < count; i++)
        {
-           sum += value;
-           result[sum / n, sum % n] = pos++;
+           sum += value; //7, 11, 15
+           array[sum / n, sum % n] = pos++; // 1,3 2,3 3,3
        }
    }
-
-   return result;
 }
 
-int[,] myArray = Spiral(4);
+int size = InputNum("Введите размер массива: ");
+int[,] myArray = Create2DArray(size);
+Fill2DArraySpiral(myArray, size);
 Print2DArray(myArray);
-*/
